@@ -4,830 +4,1912 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RHCSA EX200 Study Roadmap</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Inter Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            scroll-behavior: smooth;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f7f9fb; /* Light background for the whole page */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
         }
-        /* Custom styles for code blocks and tables */
-        .content-section pre {
-            background-color: #e2e8f0; /* Light slate background */
-            padding: 1rem;
-            border-radius: 0.5rem;
-            overflow-x: auto;
-            margin-top: 0.5rem;
-            margin-bottom: 1rem;
-            color: #1a202c; /* Dark text for code */
-            font-size: 0.875rem; /* sm text */
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
         }
-        .content-section table {
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .search-box {
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .search-box input {
             width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
-            border-radius: 0.5rem;
-            overflow: hidden; /* Ensures rounded corners are applied to table contents */
+            padding: 15px 50px 15px 20px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-size: 1em;
+            transition: all 0.3s;
         }
-        .content-section th, .content-section td {
-            border: 1px solid #e5e7eb;
-            padding: 0.75rem;
-            text-align: left;
-            font-size: 0.9rem;
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
         }
-        .content-section th {
-            background-color: #3b82f6; /* Blue header */
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .navigation {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
             font-weight: 600;
         }
-        .content-section tr:nth-child(even) {
-            background-color: #f8fafc; /* Very light row stripe */
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
-        .content-section tr:hover {
-            background-color: #e0f2fe; /* Light blue hover */
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
         }
-        /* Style for anchors in TOC */
-        .toc-link {
-            display: block;
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            margin-bottom: 0.25rem;
-            transition: all 0.2s;
-            font-size: 0.9rem;
-            white-space: nowrap;
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .section-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #667eea;
+            flex-grow: 1;
+        }
+
+        .toggle-icon {
+            font-size: 1.5em;
+            color: #667eea;
+            transition: transform 0.3s;
+        }
+
+        .section-content {
+            padding-left: 70px;
+        }
+
+        .section-content.collapsed {
+            display: none;
+        }
+
+        .description {
+            background: #f8f9ff;
+            padding: 15px;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .command-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .command-block code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+
+        .command-title {
+            color: #667eea;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .config-file {
+            background: #fff5e6;
+            padding: 15px;
+            border-left: 4px solid #ff9800;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .config-file strong {
+            color: #ff9800;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
             overflow: hidden;
-            text-overflow: ellipsis;
-            color: #4b5563; /* Gray text */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
-        .toc-link:hover {
-            background-color: #e5e7eb;
-            color: #1f2937;
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
         }
-        .toc-active {
-            font-weight: 700;
-            background-color: #bfdbfe; /* Active blue */
-            color: #1e40af;
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
         }
-        /* Style for inline code */
-        .content-section code {
-            background-color: #e2e8f0;
-            padding: 0.1rem 0.4rem;
-            border-radius: 0.3rem;
-            font-weight: 500;
+
+        tr:hover {
+            background: #f8f9ff;
         }
-        /* Mobile adjustment for TOC */
-        @media (max-width: 1024px) {
-            .toc-container {
-                position: static;
-                width: 100%;
-                margin-bottom: 2rem;
+
+        .example {
+            background: #e8f5e9;
+            padding: 15px;
+            border-left: 4px solid #4caf50;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .example strong {
+            color: #4caf50;
+        }
+
+        .study-tip {
+            background: #fff3e0;
+            padding: 15px;
+            border-left: 4px solid #fb8c00;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .study-tip strong {
+            color: #fb8c00;
+        }
+
+        .highlight {
+            background-color: #ffeb3b;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            margin-top: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
             }
+
+            .section-content {
+                padding-left: 0;
+            }
+
+            .section-number {
+                width: 40px;
+                height: 40px;
+                font-size: 1em;
+            }
+
+            .section-title {
+                font-size: 1.3em;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            .navigation {
+                gap: 5px;
+            }
+
+            .nav-btn {
+                padding: 8px 15px;
+                font-size: 0.8em;
+            }
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
         }
     </style>
 </head>
 <body>
-
-    <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-
-        <!-- Header -->
-        <header class="text-center py-10 bg-white shadow-lg rounded-xl mb-10">
-            <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-2">RHCSA Study Roadmap Canvas</h1>
-            <p class="text-lg text-gray-600 max-w-3xl mx-auto px-4">A comprehensive guide for **RHCSA EX200**, covering commands, descriptions, syntax, examples, and configuration files, structured for visual clarity.</p>
+    <div class="container">
+        <header>
+            <h1>🐧 RHCSA Study Roadmap Canvas</h1>
+            <p class="subtitle">A comprehensive guide for RHCSA EX200, covering commands, descriptions, syntax, examples, and configuration files</p>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search commands, topics, or config files...">
+                <span class="search-icon">🔍</span>
+            </div>
         </header>
 
-        <!-- Main Layout -->
-        <div class="lg:flex lg:space-x-8">
+        <nav class="navigation">
+            <button class="nav-btn" onclick="scrollToSection('section1')">Linux Foundations</button>
+            <button class="nav-btn" onclick="scrollToSection('section2')">Terminal & Shell</button>
+            <button class="nav-btn" onclick="scrollToSection('section7')">File Management</button>
+            <button class="nav-btn" onclick="scrollToSection('section9')">User Management</button>
+            <button class="nav-btn" onclick="scrollToSection('section12')">SSH</button>
+            <button class="nav-btn" onclick="scrollToSection('section13')">Networking</button>
+            <button class="nav-btn" onclick="scrollToSection('section16')">Systemd</button>
+            <button class="nav-btn" onclick="scrollToSection('section23')">SELinux</button>
+        </nav>
 
-            <!-- Sticky Table of Contents (TOC) -->
-            <aside class="toc-container lg:w-1/4 lg:sticky lg:top-8 self-start p-4 bg-white rounded-xl shadow-md mb-8 lg:mb-0">
-                <h3 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Table of Contents</h3>
-                <nav id="toc-nav">
-                    <!-- Links will be dynamically inserted here -->
-                </nav>
-            </aside>
+        <div id="content">
+            <!-- Section 1 -->
+            <div class="section" id="section1">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">1</div>
+                    <h2 class="section-title">Linux Foundations</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Understand Linux's essence—its open-source kernel, history, distro families, architecture, and file system hierarchy. This sets the context for RHCSA's focus on RHEL administration.
+                    </div>
 
-            <!-- Content Area -->
-            <main class="content-section lg:w-3/4 space-y-12 p-6 bg-white rounded-xl shadow-lg">
+                    <div class="example">
+                        <strong>Example:</strong> Persistent mount: Add <code>UUID=$(blkid -s UUID -o value /dev/sda1) /mnt xfs defaults 0 0</code> to /etc/fstab
+                    </div>
+                </div>
+            </div>
 
-                <!-- 1. Linux Foundations -->
-                <section id="section-1" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">1. Linux Foundations</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Understand Linux’s essence—its open-source kernel, history, distro families, architecture, and file system hierarchy. This sets the context for RHCSA’s focus on RHEL administration. </p>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Config Files</h4>
-                    <ul class="list-disc list-inside space-y-1 pl-4 text-gray-600">
-                        <li><code>/etc</code>: System-wide configs (e.g., <code>/etc/passwd</code>).</li>
-                        <li><code>/var/log</code>: Logs (e.g., <code>/var/log/messages</code>).</li>
-                        <li><code>/boot</code>: Boot files (e.g., <code>/boot/grub2/grub.cfg</code>).</li>
-                    </ul>
-                    <p class="mt-4"><strong>Example</strong>: Run <code>man hier</code> to explore File System Hierarchy Standard (FHS).</p>
-                    <p class="mt-2 text-sm text-yellow-700 bg-yellow-100 p-2 rounded-md"><strong>Study Tip</strong>: No commands; read Red Hat docs or skim Linux history on Wikipedia.</p>
-                </section>
+            <!-- Section 20 -->
+            <div class="section" id="section20">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">20</div>
+                    <h2 class="section-title">Boot & Systemd Targets</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Manage boot process and runlevels (targets).
+                    </div>
+                    
+                    <div class="command-block">
+                        <code>grub2-mkconfig</code> - Generates Grub config
+                        <br><strong>Syntax:</strong> grub2-mkconfig -o /boot/grub2/grub.cfg
+                        <br><strong>Example:</strong> grub2-mkconfig -o /boot/grub2/grub.cfg
+                    </div>
 
-                <!-- 2. Terminal & Shell Basics -->
-                <section id="section-2" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">2. Terminal & Shell Basics</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: The terminal is your command-line interface; the shell interprets commands. <strong>Bash</strong> is RHEL’s default, but others like Zsh exist. </p>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Commands</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li>
-                            <p><code>echo $SHELL</code>: Shows current shell.</p>
-                            <pre><code># Syntax: echo $SHELL
-# Example: echo $SHELL → /bin/bash</code></pre>
-                        </li>
-                        <li>
-                            <p><code>chsh</code>: Changes default shell.</p>
-                            <pre><code># Syntax: chsh -s /path/to/shell
-# Example: chsh -s /bin/zsh (sets Zsh for user).</code></pre>
-                        </li>
-                    </ul>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Config Files</h4>
-                    <ul class="list-disc list-inside space-y-1 pl-4 text-gray-600">
-                        <li><code>/etc/shells</code>: Lists available shells.</li>
-                        <li><code>~/.bashrc</code>: User-specific Bash settings.</li>
-                        <li><code>~/.bash_profile</code>: Login shell settings.</li>
-                    </ul>
-                    <p class="mt-4"><strong>Example</strong>: Add <code>alias ll='ls -l'</code> to <code>~/.bashrc</code> for a custom alias.</p>
-                </section>
+                    <div class="command-block">
+                        <code>systemctl set-default</code> - Sets default target
+                        <br><strong>Syntax:</strong> systemctl set-default target
+                        <br><strong>Example:</strong> systemctl set-default multi-user.target
+                    </div>
 
-                <!-- 3. Core Commands -->
-                <section id="section-3" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">3. Core Commands</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Foundational commands for navigation and help—your daily bread in Linux. </p>
-                    <table>
-                        <thead>
-                            <tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th><th>Config Files</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><code>pwd</code></td><td>Prints working directory path.</td><td><code>pwd</code></td><td><code>pwd</code> → <code>/home/user</code></td><td>None</td></tr>
-                            <tr><td><code>whoami</code></td><td>Identifies current user.</td><td><code>whoami</code></td><td><code>whoami</code> → <code>user</code></td><td>None</td></tr>
-                            <tr><td><code>ls</code></td><td>Lists directory contents.</td><td><code>ls [options] [dir]</code></td><td><code>ls -lah /etc</code> (long, all, human-readable)</td><td>None</td></tr>
-                            <tr><td><code>cd</code></td><td>Changes current directory.</td><td><code>cd [dir]</code></td><td><code>cd /var/log</code> ; <code>cd ~</code> (home)</td><td>None</td></tr>
-                            <tr><td><code>man</code></td><td>Displays manual pages for commands.</td><td><code>man [command]</code></td><td><code>man ls</code> (search with <code>/</code>, quit with <code>q</code>)</td><td><code>/usr/share/man</code></td></tr>
-                        </tbody>
-                    </table>
-                    <p class="mt-4"><strong>Example</strong>: <code>ls -R /etc</code> (recursive listing of /etc).</p>
-                </section>
+                    <div class="config-file">
+                        <strong>Config Files:</strong> /etc/grub2.cfg (Grub config)
+                    </div>
 
-                <!-- 4. Text Editors -->
-                <section id="section-4" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">4. Text Editors</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Edit configuration files with lightweight editors like **Nano** (simple) or **Vim** (powerful). </p>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Nano</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li>
-                            <p><code>nano</code>: Simple editor for quick edits.</p>
-                            <pre><code># Syntax: nano [options] [file]
-# Example: nano -l /etc/motd (edit with line numbers).
-# Options: -l (show line numbers), -w (no wrap).
-# Config File: None; settings via options.</code></pre>
-                        </li>
-                    </ul>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Vim</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li>
-                            <p><code>vim</code>: Advanced editor with modes (normal, insert, visual).</p>
-                            <pre><code># Syntax: vim [options] [file]
-# Example: vim /etc/hosts, press i, add 192.168.1.1 server, save with :wq.
-# Options: -R (read-only), +10 (start at line 10).
-# Config File: ~/.vimrc (e.g., set number for line numbers).</code></pre>
-                            <p class="font-semibold mt-2">Cheatsheet:</p>
-                            <ul class="list-disc list-inside pl-4">
-                                <li><code>i</code>: Insert mode.</li>
-                                <li><code>Esc</code>: Normal mode.</li>
-                                <li><code>:w</code>, <code>:q</code>, <code>:wq</code>: Save, quit, save+quit.</li>
-                                <li><code>dd</code>, <code>yy</code>, <code>p</code>: Delete line, copy line, paste.</li>
-                                <li><code>/pattern</code>: Search forward.</li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <p class="mt-4"><strong>Example</strong>: Create <code>~/.vimrc</code> with <code>echo "set number" > ~/.vimrc</code> for line numbers in Vim.</p>
-                </section>
+                    <div class="example">
+                        <strong>Example:</strong> Boot to emergency: At Grub, edit entry, append <code>systemd.unit=emergency.target</code>
+                    </div>
+                </div>
+            </div>
 
-                <!-- 5. Globbing -->
-                <section id="section-5" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">5. Globbing</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Uses wildcards to match file patterns, saving time in file operations. </p>
-                    <p class="mt-4"><strong>Syntax</strong>: <code>*</code> (any chars), <code>?</code> (single char), <code>[range]</code> (e.g., <code>[1-3]</code>).</p>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Examples</h4>
-                    <ul class="list-disc list-inside space-y-1 pl-4 text-gray-600">
-                        <li><code>ls *.txt</code>: Lists all .txt files.</li>
-                        <li><code>rm file[1-3].log</code>: Deletes file1.log, file2.log, file3.log.</li>
-                        <li><code>cp /etc/?a* /backup</code>: Copies files like <code>/etc/passwd</code>.</li>
-                    </ul>
-                    <p class="mt-4"><strong>Config Files</strong>: None.</p>
-                </section>
+            <!-- Section 21 -->
+            <div class="section" id="section21">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">21</div>
+                    <h2 class="section-title">Troubleshooting</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Diagnose and fix system, network, storage, and performance issues.
+                    </div>
+                    
+                    <div class="command-block">
+                        <code>journalctl</code> - Checks logs
+                        <br><strong>Example:</strong> journalctl -xe (recent errors)
+                    </div>
 
-                <!-- 6. Cockpit -->
-                <section id="section-6" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">6. Cockpit</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Web-based GUI for system management (services, storage, logs). </p>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Command</h4>
-                    <p class="text-gray-700"><code>systemctl enable --now cockpit.socket</code></p>
-                    <pre><code># Syntax: systemctl [start/enable] cockpit.socket
-# Example: dnf install cockpit ; systemctl enable --now cockpit.socket (access at https://localhost:9090).</code></pre>
-                    <p class="mt-4"><strong>Config File</strong>: <code>/etc/cockpit/cockpit.conf</code> (e.g., customize port).</p>
-                    <p class="mt-2"><strong>Example</strong>: Edit <code>/etc/cockpit/cockpit.conf</code> to set <code>UrlRoot=/cockpit</code>.</p>
-                </section>
+                    <div class="command-block">
+                        <code>fsck</code> - Repairs filesystems
+                        <br><strong>Example:</strong> fsck /dev/sda1
+                    </div>
 
-                <!-- 7. File Management Tools -->
-                <section id="section-7" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">7. File Management Tools</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Commands for creating, copying, moving, and deleting files/directories. </p>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Basic Management</h4>
-                    <table>
-                        <thead>
-                            <tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th><th>Config Files</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><code>mkdir</code></td><td>Creates directories.</td><td><code>mkdir [-p] dir</code></td><td><code>mkdir -p /new/path/dir</code> (parents)</td><td>None</td></tr>
-                            <tr><td><code>cp</code></td><td>Copies files/dirs.</td><td><code>cp [-r] src dst</code></td><td><code>cp -r /dir1 /dir2</code> (recursive)</td><td>None</td></tr>
-                            <tr><td><code>mv</code></td><td>Moves or renames.</td><td><code>mv src dst</code></td><td><code>mv file.txt /dir/newfile.txt</code></td><td>None</td></tr>
-                            <tr><td><code>rmdir</code></td><td>Removes empty dirs.</td><td><code>rmdir dir</code></td><td><code>rmdir empty</code></td><td>None</td></tr>
-                            <tr><td><code>rm</code></td><td>Deletes files/dirs.</td><td><code>rm [-rf] file</code></td><td><code>rm -rf /dir</code> (force, recursive)</td><td>None</td></tr>
-                        </tbody>
-                    </table>
+                    <div class="command-block">
+                        <code>nmcli</code> - Fixes network
+                        <br><strong>Example:</strong> nmcli con up eth0
+                    </div>
 
-                    <h4 class="text-xl font-medium mt-4 mb-2">Finding Files</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li><code>which</code>: Locates executable. <pre><code># Syntax: which command
-# Example: which ls → /usr/bin/ls.</code></pre></li>
-                        <li><code>whereis</code>: Finds binary, source, man pages. <pre><code># Syntax: whereis command
-# Example: whereis bash → bash: /bin/bash /usr/share/man/man1/bash.1.gz.</code></pre></li>
-                        <li><code>locate</code>: Fast database search. <pre><code># Syntax: locate pattern
-# Example: updatedb ; locate passwd (finds /etc/passwd).
-# Config File: /etc/updatedb.conf (controls locate database).</code></pre></li>
-                        <li><code>find</code>: Advanced file search. <pre><code># Syntax: find [path] [criteria]
-# Example: find / -type f -name "*.conf" -perm 644 (config files with 644 perms).</code></pre></li>
-                    </ul>
+                    <div class="command-block">
+                        <code>free</code> - Checks memory
+                        <br><strong>Example:</strong> free -h
+                    </div>
 
-                    <h4 class="text-xl font-medium mt-4 mb-2">Links</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li><code>ln</code>: Creates hard or symbolic links. <pre><code># Syntax: ln [-s] file link
-# Example: ln -s /etc/passwd symlink (symbolic link).</code></pre></li>
-                    </ul>
+                    <div class="command-block">
+                        <code>iotop</code> - Monitors I/O
+                        <br><strong>Example:</strong> iotop
+                    </div>
 
-                    <h4 class="text-xl font-medium mt-4 mb-2">Archiving Tools</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li><code>tar</code>: Archives files. <pre><code># Syntax: tar [cvf/xvf/tvf] file.tar [files]
-# Example: tar czvf archive.tar.gz /dir (create gzip archive).</code></pre></li>
-                        <li><code>gzip</code>: Compresses files. <pre><code># Syntax: gzip file
-# Example: gzip log.txt → log.txt.gz ; gunzip log.txt.gz.</code></pre></li>
-                        <li><code>bzip2</code>, <code>xz</code>: Higher compression. <pre><code># Syntax: bzip2 file ; xz file
-# Example: xz log.txt → log.txt.xz.</code></pre></li>
-                    </ul>
+                    <div class="command-title">Password Reset</div>
+                    <div class="command-block">
+                        <strong>Example:</strong> Boot with rd.break, mount -o remount,rw /sysroot, chroot /sysroot, passwd, touch /.autorelabel
+                    </div>
 
-                    <h4 class="text-xl font-medium mt-4 mb-2">Text Viewing</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li><code>more</code>: Basic pager (forward only). <pre><code># Syntax: more file
-# Example: more /var/log/messages.</code></pre></li>
-                        <li><code>less</code>: Advanced pager (scroll back). <pre><code># Syntax: less file
-# Example: less /var/log/messages (search with /).</code></pre></li>
-                        <li><code>head</code>: Shows first lines. <pre><code># Syntax: head [-n num] file
-# Example: head -n 5 /etc/passwd.</code></pre></li>
-                        <li><code>tail</code>: Shows last lines. <pre><code># Syntax: tail [-f/-n num] file
-# Example: tail -f /var/log/httpd/access_log (live updates).</code></pre></li>
-                        <li><code>cat</code>: Displays file content. <pre><code># Syntax: cat file
-# Example: cat /etc/hosts.</code></pre></li>
-                        <li><code>tac</code>: Displays in reverse. <pre><code># Syntax: tac file
-# Example: tac /etc/passwd.</code></pre></li>
-                    </ul>
-                </section>
+                    <div class="config-file">
+                        <strong>Config Files:</strong> /var/log/ (logs), /etc/selinux/config (for relabeling)
+                    </div>
 
-                <!-- 8. Text Processing -->
-                <section id="section-8" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">8. Text Processing</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Manipulate and search text for efficient data handling. </p>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Commands</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li><code>cut</code>: Extracts sections from lines. <pre><code># Syntax: cut [options] file
-# Example: cut -d':' -f1,3 /etc/passwd (username and UID).
-# Options: -d (delimiter), -f (fields).</code></pre></li>
-                        <li><code>sort</code>: Sorts lines. <pre><code># Syntax: sort [options] file
-# Example: sort -k2 -n file (numeric sort by 2nd field).
-# Options: -k (field), -n (numeric).</code></pre></li>
-                        <li><code>tr</code>: Translates characters. <pre><code># Syntax: tr set1 set2 < file
-# Example: tr '[:lower:]' '[:upper:]' < file (uppercase).</code></pre></li>
-                        <li><code>awk</code>: Processes patterns and fields. <pre><code># Syntax: awk 'pattern {action}' file
-# Example: awk -F: '{print $1,$3}' /etc/passwd (username, UID).</code></pre></li>
-                        <li><code>sed</code>: Stream editor for text transformation. <pre><code># Syntax: sed [options] 'command' file
-# Example: sed -i 's/error/warning/g' log.txt (replace in-place).
-# Options: -i (in-place), -r (extended regex).</code></pre></li>
-                        <li><code>grep</code>: Searches for patterns. <pre><code># Syntax: grep [options] pattern file
-# Example: grep -ri "error" /var/log (recursive, case-insensitive).
-# Options: -i (ignore case), -r (recursive), -v (invert), -E (extended regex).</code></pre></li>
-                        <li class="mt-2"><strong>Regex Examples (for grep)</strong>:
-                            <ul class="list-disc list-inside pl-4 text-gray-600">
-                                <li><code>^error</code>: Lines starting with "error".</li>
-                                <li><code>log$</code>: Lines ending with "log".</li>
-                                <li><code>[0-9]+</code>: One or more digits.</li>
-                                <li><code>grep -E 'error|warn' log</code> (match either).</li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Pipes & Redirection</h4>
-                    <ul class="list-disc list-inside space-y-1 pl-4 text-gray-600">
-                        <li><code>|</code> (Pipe): Chains output to input. *Example*: <code>ls /etc | grep conf</code>.</li>
-                        <li><code>&&</code> (Logical AND): Runs next command if previous succeeds. *Example*: <code>mkdir dir && cd dir</code>.</li>
-                        <li><code>></code>: Overwrites stdout. *Example*: <code>ls > out.txt</code>.</li>
-                        <li><code>>></code>: Appends stdout. *Example*: <code>ls >> out.txt</code>.</li>
-                        <li><code>2></code>: Redirects stderr. *Example*: <code>ls nonexist 2> err.txt</code>.</li>
-                        <li><code><</code>: Redirects stdin. *Example*: <code>cat < input.txt</code>.</li>
-                    </ul>
-                </section>
+                    <div class="example">
+                        <strong>Example:</strong> Fix boot issue: Boot to rescue, <code>dracut -f</code> (rebuild initramfs)
+                    </div>
+                </div>
+            </div>
 
-                <!-- 9. User & Group Management -->
-                <section id="section-9" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">9. User & Group Management</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Manage users and groups to control system access. </p>
-                    <table>
-                        <thead>
-                            <tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th><th>Config Files</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><code>useradd</code></td><td>Creates user.</td><td><code>useradd [options] user</code></td><td><code>useradd -m -G wheel bob</code> (home, sudo group)</td><td><code>/etc/passwd</code>, <code>/etc/shadow</code>, <code>/etc/group</code></td></tr>
-                            <tr><td><code>usermod</code></td><td>Modifies user.</td><td><code>usermod [options] user</code></td><td><code>usermod -aG staff bob</code> (add to group)</td><td>Same</td></tr>
-                            <tr><td><code>userdel</code></td><td>Deletes user.</td><td><code>userdel [-r] user</code></td><td><code>userdel -r bob</code> (with home)</td><td>Same</td></tr>
-                            <tr><td><code>groupadd</code></td><td>Creates group.</td><td><code>groupadd group</code></td><td><code>groupadd staff</code></td><td><code>/etc/group</code></td></tr>
-                            <tr><td><code>groupdel</code></td><td>Deletes group.</td><td><code>groupdel group</code></td><td><code>groupdel staff</code></td><td><code>/etc/group</code></td></tr>
-                            <tr><td><code>id</code></td><td>Displays user/group info.</td><td><code>id [user]</code></td><td><code>id bob</code></td><td>None</td></tr>
-                            <tr><td><code>chage</code></td><td>Manages password aging.</td><td><code>chage [options] user</code></td><td><code>chage -E 2026-01-01 bob</code> (expire)</td><td><code>/etc/shadow</code></td></tr>
-                            <tr><td><code>passwd</code></td><td>Sets user password.</td><td><code>passwd [user]</code></td><td><code>passwd bob</code></td><td><code>/etc/shadow</code></td></tr>
-                        </tbody>
-                    </table>
+            <!-- Section 22 -->
+            <div class="section" id="section22">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">22</div>
+                    <h2 class="section-title">Web Servers</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Host websites with Apache (httpd) or Nginx, including virtual hosts.
+                    </div>
+                    
+                    <div class="command-title">httpd (Apache)</div>
+                    <div class="command-block">
+                        <strong>Syntax:</strong> dnf install httpd ; systemctl enable --now httpd
+                    </div>
 
-                    <h4 class="text-xl font-medium mt-4 mb-2">Key Config Files</h4>
-                    <ul class="list-disc list-inside space-y-1 pl-4 text-gray-600">
-                        <li><code>/etc/passwd</code>: Stores user info (username:UID:GID:home:shell).</li>
-                        <li><code>/etc/shadow</code>: Hashed passwords and aging.</li>
-                        <li><code>/etc/group</code>: Group memberships.</li>
-                        <li><code>/etc/login.defs</code>: Password policies, defaults.</li>
-                        <li><code>/etc/default/useradd</code>: Useradd defaults.</li>
-                        <li><code>/etc/skel</code>: Template files for new user home dirs.</li>
-                    </ul>
-                    <p class="mt-4"><strong>Example</strong>: Create user: <code>useradd -m -c "Bob Smith" bob ; passwd bob</code>.</p>
-                </section>
-
-                <!-- 10. Permissions & Ownership -->
-                <section id="section-10" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">10. Permissions & Ownership</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Control file access with ownership and permissions. </p>
-                    <table>
-                        <thead>
-                            <tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th><th>Config Files</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><code>chown</code></td><td>Changes file owner/group.</td><td><code>chown [user:group] file</code></td><td><code>chown bob:staff file</code></td><td>None</td></tr>
-                            <tr><td><code>chgrp</code></td><td>Changes file group.</td><td><code>chgrp [group] file</code></td><td><code>chgrp staff file</code></td><td>None</td></tr>
-                            <tr><td><code>chmod</code></td><td>Sets permissions.</td><td><code>chmod [mode] file</code></td><td><code>chmod 644 file</code> (rw-r--r--)</td><td>None</td></tr>
-                            <tr><td><code>umask</code></td><td>Sets default permissions.</td><td><code>umask [value]</code></td><td><code>umask 022</code> (rw-r--r--)</td><td><code>/etc/profile</code>, <code>~/.bashrc</code></td></tr>
-                        </tbody>
-                    </table>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Special Permissions</h4>
-                    <ul class="list-disc list-inside space-y-1 pl-4 text-gray-600">
-                        <li><strong>SetUID</strong>: <code>chmod 4755 file</code> (run as owner).</li>
-                        <li><strong>SetGID</strong>: <code>chmod 2755 dir</code> (inherit group, legacy).</li>
-                        <li><strong>Sticky Bit</strong>: <code>chmod 1777 /tmp</code> (only owner deletes).</li>
-                    </ul>
-                    <h4 class="text-xl font-medium mt-4 mb-2">File ACL</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li><code>setfacl</code>: Sets access control lists. <pre><code># Syntax: setfacl [-m/-x] rule file
-# Example: setfacl -m u:alice:rwx /shared.</code></pre></li>
-                        <li><code>getfacl</code>: Views ACLs. <pre><code># Example: getfacl /shared.</code></pre></li>
-                    </ul>
-                    <p class="mt-4"><strong>Example</strong>: Set restrictive umask: <code>echo "umask 077" >> ~/.bashrc</code>.</p>
-                </section>
-
-                <!-- 11. Root & Access Control -->
-                <section id="section-11" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">11. Root & Access Control</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: **Root** (UID 0) has full access; manage privilege escalation carefully. </p>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Commands</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li><code>su</code>: Switches user. <pre><code># Syntax: su [-] [user]
-# Example: su - root (full root environment).</code></pre></li>
-                        <li><code>sudo</code>: Runs commands as another user. <pre><code># Syntax: sudo command
-# Example: sudo systemctl restart httpd.
-# Config File: /etc/sudoers, /etc/sudoers.d/ (edit with visudo).
-# Example: Add bob ALL=(ALL) ALL to /etc/sudoers.d/bob.</code></pre></li>
-                    </ul>
-                    <p class="mt-4"><strong>Config Files</strong>: <code>/etc/sudoers</code> (sudo rules).</p>
-                    <p class="mt-2"><strong>Example</strong>: Grant sudo to wheel group: <code>visudo</code>, uncomment <code>%wheel ALL=(ALL) ALL</code>.</p>
-                </section>
-
-                <!-- 12. SSH -->
-                <section id="section-12" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">12. SSH</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Secure Shell for remote access and file transfer. </p>
-                    <table>
-                        <thead>
-                            <tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th><th>Config Files</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><code>ssh</code></td><td>Connects to remote host.</td><td><code>ssh [options] user@host</code></td><td><code>ssh -p 2222 bob@server</code></td><td><code>/etc/ssh/sshd_config</code>, <code>~/.ssh/config</code></td></tr>
-                            <tr><td><code>scp</code></td><td>Copies files securely.</td><td><code>scp [options] src dst</code></td><td><code>scp -r dir bob@server:~/</code></td><td>Same</td></tr>
-                            <tr><td><code>sftp</code></td><td>Secure file transfer protocol.</td><td><code>sftp user@host</code></td><td><code>sftp bob@server</code> (use put/get)</td><td>Same</td></tr>
-                        </tbody>
-                    </table>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Key-Based Login</h4>
-                    <ul class="space-y-1 pl-4 text-gray-600">
-                        <li><strong>Commands</strong>: <code>ssh-keygen ; ssh-copy-id user@host</code>.</li>
-                        <li><strong>Example</strong>: <code>ssh-keygen -t rsa ; ssh-copy-id bob@192.168.1.10</code>.</li>
-                    </ul>
-                    <h4 class="text-xl font-medium mt-4 mb-2">SSH Hardening</h4>
-                    <ul class="space-y-1 pl-4 text-gray-600">
-                        <li><strong>Config</strong>: <code>/etc/ssh/sshd_config</code>.</li>
-                        <li><strong>Example</strong>: Edit to <code>PermitRootLogin no</code>, <code>Port 2222</code>, then <code>systemctl restart sshd</code>.</li>
-                    </ul>
-                    <p class="mt-4"><strong>Example</strong>: Copy directory: <code>scp -P 2222 -r /data bob@server:/home/bob</code>.</p>
-                </section>
-
-                <!-- 13. Networking -->
-                <section id="section-13" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">13. Networking</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Configure and troubleshoot network connections using **NetworkManager**. </p>
-                    <table>
-                        <thead>
-                            <tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th><th>Config Files</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><code>nmcli</code></td><td>Manages NetworkManager.</td><td><code>nmcli [con/dev] [action]</code></td><td><code>nmcli con mod eth0 ipv4.addresses 192.168.1.10/24</code></td><td><code>/etc/NetworkManager/</code></td></tr>
-                            <tr><td><code>nmtui</code></td><td>Text UI for network config.</td><td><code>nmtui</code></td><td><code>nmtui</code> (edit connection)</td><td>Same</td></tr>
-                            <tr><td><code>ping</code></td><td>Tests connectivity.</td><td><code>ping host</code></td><td><code>ping 8.8.8.8</code></td><td>None</td></tr>
-                            <tr><td><code>dig</code></td><td>Performs DNS lookup.</td><td><code>dig domain</code></td><td><code>dig example.com</code></td><td>None</td></tr>
-                            <tr><td><code>ss</code></td><td>Shows socket connections.</td><td><code>ss [options]</code></td><td><code>ss -tuln</code> (listening ports)</td><td>None</td></tr>
-                        </tbody>
-                    </table>
-                    <p class="mt-4"><strong>Config Files</strong>: <code>/etc/NetworkManager/system-connections/</code> (connection profiles).</p>
-                    <p class="mt-2"><strong>Example</strong>: Connect to Wi-Fi: <code>nmcli dev wifi connect SSID password mypass</code>.</p>
-                </section>
-
-                <!-- 14. Process Management -->
-                <section id="section-14" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">14. Process Management</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Monitor and control running processes. </p>
-                    <table>
-                        <thead>
-                            <tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th><th>Config Files</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><code>ps</code></td><td>Lists processes.</td><td><code>ps [options]</code></td><td><code>ps aux | grep httpd</code></td><td>None</td></tr>
-                            <tr><td><code>top</code></td><td>Interactive process monitor.</td><td><code>top</code></td><td><code>top</code> (quit with <code>q</code>, kill with <code>k</code>)</td><td>None</td></tr>
-                            <tr><td><code>nice</code></td><td>Sets process priority.</td><td><code>nice -n value cmd</code></td><td><code>nice -n 10 sleep 100</code></td><td>None</td></tr>
-                            <tr><td><code>renice</code></td><td>Changes running process priority.</td><td><code>renice value -p PID</code></td><td><code>renice 5 -p 1234</code></td><td>None</td></tr>
-                            <tr><td><code>kill</code></td><td>Terminates processes.</td><td><code>kill [-signal] PID</code></td><td><code>kill -9 1234</code> (force kill)</td><td>None</td></tr>
-                            <tr><td><code>jobs</code></td><td>Lists background jobs.</td><td><code>jobs</code></td><td><code>jobs</code></td><td>None</td></tr>
-                            <tr><td><code>fg</code>, <code>bg</code></td><td>Manages job foreground/background.</td><td><code>fg %jobnum</code></td><td><code>sleep 100 & ; fg %1</code></td><td>None</td></tr>
-                        </tbody>
-                    </table>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Performance Tuning (tuned)</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li><code>tuned-adm</code>: Optimizes system performance. <pre><code># Syntax: tuned-adm profile [profile]
-# Example: tuned-adm profile virtual-guest.
-# Config File: /etc/tuned/tuned-main.conf.</code></pre></li>
-                    </ul>
-                </section>
-
-                <!-- 15. Software Management -->
-                <section id="section-15" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">15. Software Management</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Install, update, and manage packages with **DNF**, **RPM**, and **Flatpak**. </p>
-                    <table>
-                        <thead>
-                            <tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th><th>Config Files</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><code>dnf</code></td><td>Manages packages.</td><td><code>dnf [install/update/remove] pkg</code></td><td><code>dnf install httpd -y</code></td><td><code>/etc/yum.repos.d/</code></td></tr>
-                            <tr><td><code>rpm</code></td><td>Manages RPM files.</td><td><code>rpm [options] pkg</code></td><td><code>rpm -ivh package.rpm</code></td><td>None</td></tr>
-                            <tr><td><code>flatpak</code></td><td>Installs Flatpak apps.</td><td><code>flatpak install repo app</code></td><td><code>flatpak install flathub firefox</code></td><td><code>/etc/flatpak/</code></td></tr>
-                        </tbody>
-                    </table>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Local Repo Setup</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li><strong>Commands</strong>: <code>mount /dev/cdrom /mnt ; dnf repolist</code>.</li>
-                        <li><strong>Config</strong>: Create <code>/etc/yum.repos.d/local.repo</code>:
-                            <pre><code>[local]
-name=Local Repo
-baseurl=file:///mnt
-enabled=1
-gpgcheck=0</code></pre>
-                        </li>
-                        <li><strong>Example</strong>: Create repo: <code>echo "[local]\nname=Local Repo\nbaseurl=file:///mnt\nenabled=1\ngpgcheck=0" > /etc/yum.repos.d/local.repo</code>.</li>
-                    </ul>
-                </section>
-
-                <!-- 16. Systemd -->
-                <section id="section-16" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">16. Systemd</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Manages services, targets, and system initialization. </p>
-                    <table>
-                        <thead>
-                            <tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th><th>Config Files</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><code>systemctl</code></td><td>Controls services/targets.</td><td><code>systemctl [start/stop/enable/status] unit</code></td><td><code>systemctl enable --now httpd</code></td><td><code>/etc/systemd/system/</code></td></tr>
-                        </tbody>
-                    </table>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Custom Service</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li><strong>Config</strong>: <code>/etc/systemd/system/myservice.service</code>:
-                            <pre><code>[Unit]
-Description=My Custom Service
-[Service]
-ExecStart=/bin/bash /script.sh
-Restart=always
-[Install]
-WantedBy=multi-user.target</code></pre>
-                        </li>
-                        <li><strong>Example</strong>: <code>systemctl daemon-reload ; systemctl enable myservice</code>.</li>
-                    </ul>
-                </section>
-
-                <!-- 17. Task Scheduling -->
-                <section id="section-17" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">17. Task Scheduling</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Automate tasks with **cron**, **at**, or **systemd timers**. </p>
-                    <table>
-                        <thead>
-                            <tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th><th>Config Files</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><code>crontab</code></td><td>Schedules recurring tasks.</td><td><code>crontab [-e/-l]</code></td><td><code>crontab -e</code> → <code>0 2 * * * /backup.sh</code> (2am daily)</td><td><code>/etc/crontab</code>, <code>/etc/cron.d/</code></td></tr>
-                            <tr><td><code>at</code></td><td>Schedules one-time tasks.</td><td><code>at [time]</code></td><td><code>at now +5min</code> → <code>echo test > file</code></td><td>None</td></tr>
-                        </tbody>
-                    </table>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Systemd Timers</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li><strong>Config</strong>: <code>/etc/systemd/system/mytimer.timer</code>:
-                            <pre><code>[Unit]
-Description=My Timer
-[Timer]
-OnCalendar=*-*-* 02:00:00
-Unit=myservice.service
-[Install]
-WantedBy=timers.target</code></pre>
-                        </li>
-                        <li><strong>Example</strong>: <code>systemctl enable --now mytimer.timer</code>.</li>
-                    </ul>
-                </section>
-
-                <!-- 18. Logging -->
-                <section id="section-18" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">18. Logging</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Monitor and manage system logs with **journald**, **rsyslog**, and **logrotate**. </p>
-                    <table>
-                        <thead>
-                            <tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th><th>Config Files</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><code>journalctl</code></td><td>Views systemd logs.</td><td><code>journalctl [options]</code></td><td><code>journalctl -u httpd -f</code> (follow httpd logs)</td><td><code>/etc/systemd/journald.conf</code></td></tr>
-                            <tr><td><code>logger</code></td><td>Sends custom log messages.</td><td><code>logger message</code></td><td><code>logger "Test log entry"</code></td><td>None</td></tr>
-                        </tbody>
-                    </table>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Config Files</h4>
-                    <ul class="list-disc list-inside space-y-1 pl-4 text-gray-600">
-                        <li><code>/etc/rsyslog.conf</code>: Configures log forwarding (e.g., <code>*.* @192.168.1.100:514</code>).</li>
-                        <li><code>/etc/systemd/journald.conf</code>: Sets persistent logging (<code>Storage=persistent</code>).</li>
-                        <li><code>/etc/logrotate.conf</code>: Manages log rotation. *Example*: <code>/var/log/messages { weekly rotate 4 }</code>.</li>
-                    </ul>
-                    <p class="mt-4"><strong>Example</strong>: Forward logs: Edit <code>/etc/rsyslog.conf</code>, add <code>*.* @logserver</code>, run <code>systemctl restart rsyslog</code>.</p>
-                </section>
-
-                <!-- 19. Storage Management -->
-                <section id="section-19" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">19. Storage Management</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Partition, format, and mount storage; manage **LVM** and **SWAP**. </p>
-                    <table>
-                        <thead>
-                            <tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th><th>Config Files</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><code>fdisk</code></td><td>Partitions disks (MBR/GPT).</td><td><code>fdisk device</code></td><td><code>fdisk /dev/sda</code> (create partition)</td><td>None</td></tr>
-                            <tr><td><code>parted</code></td><td>Advanced partitioning.</td><td><code>parted device commands</code></td><td><code>parted /dev/sda mklabel gpt mkpart primary 1MiB 10GiB</code></td><td>None</td></tr>
-                            <tr><td><code>mkfs</code></td><td>Formats filesystem.</td><td><code>mkfs.fs_type device</code></td><td><code>mkfs.xfs /dev/sda1</code></td><td>None</td></tr>
-                            <tr><td><code>mount</code></td><td>Mounts filesystem.</td><td><code>mount device dir</code></td><td><code>mount /dev/sda1 /mnt</code></td><td><code>/etc/fstab</code></td></tr>
-                        </tbody>
-                    </table>
-                    <h4 class="text-xl font-medium mt-4 mb-2">SWAP Management</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li><strong>Commands</strong>: <code>dd if=/dev/zero of=/swapfile bs=1M count=1024 ; mkswap /swapfile ; swapon /swapfile</code>.</li>
-                        <li><strong>Config</strong>: Add to <code>/etc/fstab</code>: <code>/swapfile swap swap defaults 0 0</code>.</li>
-                    </ul>
-                    <h4 class="text-xl font-medium mt-4 mb-2">LVM Management</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li><strong>Creation Commands</strong>: <code>pvcreate /dev/sdb</code> (Physical Volume); <code>vgcreate vg0 /dev/sdb</code> (Volume Group); <code>lvcreate -L 5G -n lv0 vg0</code> (Logical Volume).</li>
-                        <li><strong>Extension Command</strong>: <code>lvextend -L +2G /dev/vg0/lv0 ; xfs_growfs /mountpoint</code>.</li>
-                        <li><strong>Example</strong>: Display LVM info: <code>pvs ; vgs ; lvs</code>.</li>
-                    </ul>
-                    <p class="mt-4"><strong>Example</strong>: Persistent mount: Add <code>UUID=$(blkid -s UUID -o value /dev/sda1) /mnt xfs defaults 0 0</code> to <code>/etc/fstab</code>.</p>
-                </section>
-
-                <!-- 20. Boot & Systemd Targets -->
-                <section id="section-20" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">20. Boot & Systemd Targets</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Manage boot process and runlevels (**targets**). </p>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Commands</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li><code>grub2-mkconfig</code>: Generates Grub config. <pre><code># Syntax: grub2-mkconfig -o /boot/grub2/grub.cfg
-# Example: grub2-mkconfig -o /boot/grub2/grub.cfg.</code></pre></li>
-                        <li><code>systemctl set-default</code>: Sets default target. <pre><code># Syntax: systemctl set-default target
-# Example: systemctl set-default multi-user.target.</code></pre></li>
-                    </ul>
-                    <p class="mt-4"><strong>Config Files</strong>: <code>/etc/grub2.cfg</code> (Grub config).</p>
-                    <p class="mt-2"><strong>Example</strong>: Boot to emergency: At Grub, edit entry, append <code>systemd.unit=emergency.target</code>.</p>
-                </section>
-
-                <!-- 21. Troubleshooting -->
-                <section id="section-21" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">21. Troubleshooting</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Diagnose and fix system, network, storage, and performance issues. </p>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Troubleshooting Tools</h4>
-                    <ul class="list-disc list-inside space-y-1 pl-4 text-gray-600">
-                        <li><code>journalctl -xe</code>: Checks recent errors/logs.</li>
-                        <li><code>fsck /dev/sda1</code>: Repairs filesystems.</li>
-                        <li><code>nmcli con up eth0</code>: Fixes network connection.</li>
-                        <li><code>free -h</code>: Checks memory usage.</li>
-                        <li><code>iotop</code>: Monitors I/O activity.</li>
-                    </ul>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Password Reset</h4>
-                    <p class="text-gray-700">Boot with <code>rd.break</code>, <code>mount -o remount,rw /sysroot</code>, <code>chroot /sysroot</code>, <code>passwd</code>, <code>touch /.autorelabel</code>.</p>
-                    <p class="mt-4"><strong>Config Files</strong>: <code>/var/log/</code> (logs), <code>/etc/selinux/config</code> (for relabeling).</p>
-                    <p class="mt-2"><strong>Example</strong>: Fix boot issue: Boot to rescue, <code>dracut -f</code> (rebuild initramfs).</p>
-                </section>
-
-                <!-- 22. Web Servers -->
-                <section id="section-22" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">22. Web Servers</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Host websites with **Apache (httpd)** or **Nginx**, including virtual hosts. </p>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Apache (httpd)</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li>
-                            <p><strong>Setup</strong>: <code>dnf install httpd ; systemctl enable --now httpd</code></p>
-                            <p><strong>Virtual Host Example</strong>: Create <code>/etc/httpd/conf.d/vhost.conf</code>:</p>
-                            <pre><code>&lt;VirtualHost *:80>
+                    <div class="config-file">
+                        <strong>Example VirtualHost:</strong> Create /etc/httpd/conf.d/vhost.conf
+                        <pre>&lt;VirtualHost *:80&gt;
     ServerName example.com
     DocumentRoot /var/www/example
-    &lt;Directory /var/www/example>
+    &lt;Directory /var/www/example&gt;
         Require all granted
-    &lt;/Directory>
-&lt;/VirtualHost></code></pre>
-                            <p><strong>Config Files</strong>: <code>/etc/httpd/conf/httpd.conf</code>, <code>/etc/httpd/conf.d/</code>.</p>
-                        </li>
-                    </ul>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Nginx</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li>
-                            <p><strong>Setup</strong>: <code>dnf install nginx ; systemctl enable --now nginx</code></p>
-                            <p><strong>Virtual Host Example</strong>: Create <code>/etc/nginx/conf.d/vhost.conf</code>:</p>
-                            <pre><code>server {
+    &lt;/Directory&gt;
+&lt;/VirtualHost&gt;</pre>
+                        <strong>Config Files:</strong> /etc/httpd/conf/httpd.conf, /etc/httpd/conf.d/
+                    </div>
+
+                    <div class="command-title">nginx</div>
+                    <div class="command-block">
+                        <strong>Syntax:</strong> dnf install nginx ; systemctl enable --now nginx
+                    </div>
+
+                    <div class="config-file">
+                        <strong>Example VirtualHost:</strong> Create /etc/nginx/conf.d/vhost.conf
+                        <pre>server {
     listen 80;
     server_name example.com;
     root /var/www/example;
     location / {
         try_files $uri $uri/ =404;
     }
-}</code></pre>
-                            <p><strong>Config Files</strong>: <code>/etc/nginx/nginx.conf</code>, <code>/etc/nginx/conf.d/</code>.</p>
-                        </li>
-                    </ul>
-                    <p class="mt-4"><strong>Example</strong>: Test Nginx: <code>nginx -t ; systemctl reload nginx</code>.</p>
-                </section>
+}</pre>
+                        <strong>Config Files:</strong> /etc/nginx/nginx.conf, /etc/nginx/conf.d/
+                    </div>
 
-                <!-- 23. SELinux -->
-                <section id="section-23" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">23. SELinux</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Enforce mandatory access control for security. </p>
+                    <div class="example">
+                        <strong>Example:</strong> Test Nginx: <code>nginx -t ; systemctl reload nginx</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 23 -->
+            <div class="section" id="section23">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">23</div>
+                    <h2 class="section-title">SELinux</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Enforce mandatory access control for security.
+                    </div>
+                    
                     <table>
                         <thead>
-                            <tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th><th>Config Files</th></tr>
+                            <tr>
+                                <th>Command</th>
+                                <th>Description</th>
+                                <th>Syntax</th>
+                                <th>Example</th>
+                            </tr>
                         </thead>
                         <tbody>
-                            <tr><td><code>getenforce</code></td><td>Shows SELinux mode.</td><td><code>getenforce</code></td><td><code>getenforce</code> → Enforcing</td><td><code>/etc/selinux/config</code></td></tr>
-                            <tr><td><code>setenforce</code></td><td>Sets mode (Enforcing/Permissive).</td><td><code>setenforce 0/1</code></td><td><code>setenforce 0</code></td><td>Same</td></tr>
-                            <tr><td><code>semanage</code></td><td>Manages SELinux policies.</td><td><code>semanage [type] [options]</code></td><td><code>semanage port -a -t http_port_t -p tcp 8080</code></td><td>Same</td></tr>
-                            <tr><td><code>chcon</code></td><td>Changes SELinux context.</td><td><code>chcon [-t type] file</code></td><td><code>chcon -t httpd_sys_content_t /var/www/file</code></td><td>Same</td></tr>
-                            <tr><td><code>restorecon</code></td><td>Restores default context.</td><td><code>restorecon [-v] file</code></td><td><code>restorecon -v /var/www/file</code></td><td>Same</td></tr>
+                            <tr>
+                                <td><code>getenforce</code></td>
+                                <td>Shows SELinux mode</td>
+                                <td>getenforce</td>
+                                <td>getenforce → Enforcing</td>
+                            </tr>
+                            <tr>
+                                <td><code>setenforce</code></td>
+                                <td>Sets mode (Enforcing/Permissive)</td>
+                                <td>setenforce 0/1</td>
+                                <td>setenforce 0</td>
+                            </tr>
+                            <tr>
+                                <td><code>semanage</code></td>
+                                <td>Manages SELinux policies</td>
+                                <td>semanage [type] [options]</td>
+                                <td>semanage port -a -t http_port_t -p tcp 8080</td>
+                            </tr>
+                            <tr>
+                                <td><code>chcon</code></td>
+                                <td>Changes SELinux context</td>
+                                <td>chcon [-t type] file</td>
+                                <td>chcon -t httpd_sys_content_t /var/www/file</td>
+                            </tr>
+                            <tr>
+                                <td><code>restorecon</code></td>
+                                <td>Restores default context</td>
+                                <td>restorecon [-v] file</td>
+                                <td>restorecon -v /var/www/file</td>
+                            </tr>
                         </tbody>
                     </table>
-                    <p class="mt-4"><strong>Example</strong>: Allow httpd on custom port: <code>semanage port -a -t http_port_t -p tcp 8080</code>.</p>
-                </section>
 
-                <!-- 24. Firewalld -->
-                <section id="section-24" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">24. Firewalld</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Manages firewall rules dynamically. </p>
+                    <div class="config-file">
+                        <strong>Config Files:</strong> /etc/selinux/config
+                    </div>
+
+                    <div class="example">
+                        <strong>Example:</strong> Allow httpd on custom port: <code>semanage port -a -t http_port_t -p tcp 8080</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 24 -->
+            <div class="section" id="section24">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">24</div>
+                    <h2 class="section-title">Firewalld</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Manages firewall rules dynamically.
+                    </div>
+                    
+                    <div class="command-block">
+                        <code>firewall-cmd</code> - Configures firewall
+                        <br><strong>Syntax:</strong> firewall-cmd [options]
+                        <br><strong>Example:</strong> firewall-cmd --add-service=http --permanent
+                    </div>
+
+                    <div class="command-title">Rich Rule</div>
+                    <div class="command-block">
+                        <strong>Example:</strong> firewall-cmd --add-rich-rule='rule family="ipv4" source address="192.168.1.0/24" service name="ssh" accept' --permanent
+                    </div>
+
+                    <div class="config-file">
+                        <strong>Config Files:</strong> /etc/firewalld/
+                    </div>
+
+                    <div class="example">
+                        <strong>Example:</strong> Reload firewall: <code>firewall-cmd --reload</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 25 -->
+            <div class="section" id="section25">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">25</div>
+                    <h2 class="section-title">Time Management</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Synchronize system and hardware clocks, manage timezones.
+                    </div>
+                    
                     <table>
                         <thead>
-                            <tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th><th>Config Files</th></tr>
+                            <tr>
+                                <th>Command</th>
+                                <th>Description</th>
+                                <th>Syntax</th>
+                                <th>Example</th>
+                            </tr>
                         </thead>
                         <tbody>
-                            <tr><td><code>firewall-cmd</code></td><td>Configures firewall.</td><td><code>firewall-cmd [options]</code></td><td><code>firewall-cmd --add-service=http --permanent</code></td><td><code>/etc/firewalld/</code></td></tr>
+                            <tr>
+                                <td><code>date</code></td>
+                                <td>Shows/sets system time</td>
+                                <td>date [format]</td>
+                                <td>date +%Y-%m-%d</td>
+                            </tr>
+                            <tr>
+                                <td><code>hwclock</code></td>
+                                <td>Manages hardware clock</td>
+                                <td>hwclock [options]</td>
+                                <td>hwclock --systohc</td>
+                            </tr>
+                            <tr>
+                                <td><code>timedatectl</code></td>
+                                <td>Manages time and NTP</td>
+                                <td>timedatectl [options]</td>
+                                <td>timedatectl set-ntp true</td>
+                            </tr>
                         </tbody>
                     </table>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Rich Rule</h4>
-                    <p class="text-gray-700"><code>firewall-cmd --add-rich-rule='rule family="ipv4" source address="192.168.1.0/24" service name="ssh" accept' --permanent</code></p>
-                    <p class="mt-4"><strong>Example</strong>: Reload firewall: <code>firewall-cmd --reload</code>.</p>
-                </section>
 
-                <!-- 25. Time Management -->
-                <section id="section-25" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">25. Time Management</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Synchronize system and hardware clocks, manage timezones. </p>
-                    <table>
-                        <thead>
-                            <tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th><th>Config Files</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><code>date</code></td><td>Shows/sets system time.</td><td><code>date [format]</code></td><td><code>date +%Y-%m-%d</code></td><td>None</td></tr>
-                            <tr><td><code>hwclock</code></td><td>Manages hardware clock.</td><td><code>hwclock [options]</code></td><td><code>hwclock --systohc</code> (sync to hardware)</td><td>None</td></tr>
-                            <tr><td><code>timedatectl</code></td><td>Manages time and NTP.</td><td><code>timedatectl [options]</code></td><td><code>timedatectl set-ntp true</code></td><td><code>/etc/chrony.conf</code></td></tr>
-                        </tbody>
-                    </table>
-                    <p class="mt-4"><strong>Example</strong>: Set timezone: <code>timedatectl set-timezone America/New_York</code>.</p>
-                </section>
+                    <div class="config-file">
+                        <strong>Config Files:</strong> /etc/chrony.conf
+                    </div>
 
-                <!-- 26. NFS -->
-                <section id="section-26" class="border-b pb-6">
-                    <h2 class="text-3xl font-semibold text-blue-700 mb-4">26. NFS</h2>
-                    <p class="text-gray-700"><strong>Description</strong>: Share files over the network with **Network File System**. </p>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Server Setup</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li><strong>Setup</strong>: <code>dnf install nfs-utils ; systemctl enable --now nfs-server</code>.</li>
-                        <li><strong>Config</strong>: Add to <code>/etc/exports</code>: <code>/share *(rw,sync)</code>, then <code>exportfs -a</code>.</li>
-                        <li><strong>Config File</strong>: <code>/etc/exports</code>.</li>
-                    </ul>
-                    <h4 class="text-xl font-medium mt-4 mb-2">Client Setup</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li><strong>Command</strong>: <code>mount server:/share /mnt</code>.</li>
-                        <li><strong>Config</strong>: Add to <code>/etc/fstab</code>: <code>192.168.1.10:/share /mnt nfs defaults 0 0</code>.</li>
-                        <li><strong>Config File</strong>: <code>/etc/fstab</code>.</li>
-                    </ul>
-                    <p class="mt-4"><strong>Example</strong>: Show exports: <code>showmount -e 192.168.1.10</code>.</p>
-                </section>
+                    <div class="example">
+                        <strong>Example:</strong> Set timezone: <code>timedatectl set-timezone America/New_York</code>
+                    </div>
+                </div>
+            </div>
 
-                <!-- Footer/End Section -->
-                <footer class="text-center pt-8 text-gray-500 text-sm">
-                    RHCSA Study Roadmap - Comprehensive Guide
-                </footer>
+            <!-- Section 26 -->
+            <div class="section" id="section26">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">26</div>
+                    <h2 class="section-title">NFS</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Share files over the network with Network File System.
+                    </div>
+                    
+                    <div class="command-title">Server</div>
+                    <div class="command-block">
+                        <strong>Syntax:</strong> dnf install nfs-utils ; systemctl enable --now nfs-server
+                        <br><strong>Example:</strong> Add to /etc/exports: <code>/share *(rw,sync)</code>, then <code>exportfs -a</code>
+                    </div>
 
-            </main>
+                    <div class="config-file">
+                        <strong>Config File:</strong> /etc/exports
+                    </div>
+
+                    <div class="command-title">Client</div>
+                    <div class="command-block">
+                        <strong>Syntax:</strong> mount server:/share /mnt
+                        <br><strong>Example:</strong> Add to /etc/fstab: <code>192.168.1.10:/share /mnt nfs defaults 0 0</code>
+                    </div>
+
+                    <div class="config-file">
+                        <strong>Config File:</strong> /etc/fstab
+                    </div>
+
+                    <div class="example">
+                        <strong>Example:</strong> Show exports: <code>showmount -e 192.168.1.10</code>
+                    </div>
+                </div>
+            </div>
         </div>
 
+        <footer>
+            <h3>🎓 RHCSA EX200 Study Roadmap</h3>
+            <p>Good luck with your RHCSA certification! Practice these commands regularly and review the configuration files.</p>
+            <p style="margin-top: 10px; color: #666;">Remember: Hands-on practice is key to success!</p>
+        </footer>
+    </div>
+
+    <div class="back-to-top" id="backToTop" onclick="scrollToTop()">
+        ↑
     </div>
 
     <script>
-        // JavaScript to build the Table of Contents (TOC) and handle active state
-        document.addEventListener('DOMContentLoaded', () => {
-            const content = document.querySelector('.content-section');
-            const tocNav = document.getElementById('toc-nav');
-            const sections = content.querySelectorAll('section[id^="section-"]');
+        // Toggle section visibility
+        function toggleSection(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('.toggle-icon');
+            
+            content.classList.toggle('collapsed');
+            icon.style.transform = content.classList.contains('collapsed') ? 'rotate(-90deg)' : 'rotate(0deg)';
+        }
 
-            // 1. Build the TOC Links
+        // Scroll to specific section
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Expand section if collapsed
+                const content = section.querySelector('.section-content');
+                if (content.classList.contains('collapsed')) {
+                    toggleSection(section.querySelector('.section-header'));
+                }
+            }
+        }
+
+        // Back to top button
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const sections = document.querySelectorAll('.section');
+            
             sections.forEach(section => {
-                const title = section.querySelector('h2').textContent;
-                const id = section.id;
-                const link = document.createElement('a');
-                link.href = `#${id}`;
-                link.classList.add('toc-link');
-                link.textContent = title;
-                tocNav.appendChild(link);
+                const content = section.textContent.toLowerCase();
+                
+                if (content.includes(searchTerm) || searchTerm === '') {
+                    section.style.display = 'block';
+                    
+                    // Highlight matching text
+                    if (searchTerm !== '') {
+                        const sectionContent = section.querySelector('.section-content');
+                        if (sectionContent && !sectionContent.classList.contains('collapsed')) {
+                            // Keep expanded if searching
+                        } else if (searchTerm !== '') {
+                            // Expand section when searching
+                            sectionContent.classList.remove('collapsed');
+                            section.querySelector('.toggle-icon').style.transform = 'rotate(0deg)';
+                        }
+                    }
+                } else {
+                    section.style.display = 'none';
+                }
             });
+        });
 
-            // 2. Observer for active state
-            const observerOptions = {
-                root: null,
-                rootMargin: "0px 0px -75% 0px", // Adjust based on header height
-                threshold: 0
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                let activeId = null;
-                // Find the first section that is intersecting (visible)
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        activeId = entry.target.id;
-                    }
-                });
-
-                // Update TOC based on the active section
-                tocNav.querySelectorAll('.toc-link').forEach(link => {
-                    link.classList.remove('toc-active');
-                    if (activeId && link.getAttribute('href') === `#${activeId}`) {
-                        link.classList.add('toc-active');
-                    }
-                });
-            }, observerOptions);
-
-            sections.forEach(section => {
-                observer.observe(section);
+        // Collapse all sections initially for better overview
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.section-content');
+            sections.forEach((content, index) => {
+                // Keep first 3 sections expanded by default
+                if (index >= 3) {
+                    content.classList.add('collapsed');
+                    content.previousElementSibling.querySelector('.toggle-icon').style.transform = 'rotate(-90deg)';
+                }
             });
         });
     </script>
-
 </body>
 </html>
+                    <div class="config-file">
+                        <strong>Config Files:</strong>
+                        <ul>
+                            <li><code>/etc</code>: System-wide configs (e.g., /etc/passwd)</li>
+                            <li><code>/var/log</code>: Logs (e.g., /var/log/messages)</li>
+                            <li><code>/boot</code>: Boot files (e.g., /boot/grub2/grub.cfg)</li>
+                        </ul>
+                    </div>
+                    <div class="example">
+                        <strong>Example:</strong> Run <code>man hier</code> to explore File System Hierarchy Standard (FHS).
+                    </div>
+                    <div class="study-tip">
+                        <strong>Study Tip:</strong> No commands; read Red Hat docs or skim Linux history on Wikipedia.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="section" id="section2">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">2</div>
+                    <h2 class="section-title">Terminal & Shell Basics</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> The terminal is your command-line interface; the shell interprets commands. Bash is RHEL's default, but others like Zsh exist.
+                    </div>
+                    
+                    <div class="command-title">Commands:</div>
+                    <div class="command-block">
+                        <code>echo $SHELL</code> - Shows current shell
+                        <br><strong>Syntax:</strong> echo $SHELL
+                        <br><strong>Example:</strong> echo $SHELL → /bin/bash
+                    </div>
+
+                    <div class="command-block">
+                        <code>chsh</code> - Changes default shell
+                        <br><strong>Syntax:</strong> chsh -s /path/to/shell
+                        <br><strong>Example:</strong> chsh -s /bin/zsh (sets Zsh for user)
+                    </div>
+
+                    <div class="config-file">
+                        <strong>Config Files:</strong>
+                        <ul>
+                            <li><code>/etc/shells</code>: Lists available shells</li>
+                            <li><code>~/.bashrc</code>: User-specific Bash settings</li>
+                            <li><code>~/.bash_profile</code>: Login shell settings</li>
+                        </ul>
+                    </div>
+
+                    <div class="example">
+                        <strong>Example:</strong> Add <code>alias ll='ls -l'</code> to ~/.bashrc for a custom alias.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3 -->
+            <div class="section" id="section3">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">3</div>
+                    <h2 class="section-title">Core Commands</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Foundational commands for navigation and help—your daily bread in Linux.
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Command</th>
+                                <th>Description</th>
+                                <th>Syntax</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>pwd</code></td>
+                                <td>Prints working directory path</td>
+                                <td>pwd</td>
+                                <td>pwd → /home/user</td>
+                            </tr>
+                            <tr>
+                                <td><code>whoami</code></td>
+                                <td>Identifies current user</td>
+                                <td>whoami</td>
+                                <td>whoami → user</td>
+                            </tr>
+                            <tr>
+                                <td><code>ls</code></td>
+                                <td>Lists directory contents</td>
+                                <td>ls [options] [dir]</td>
+                                <td>ls -lah /etc</td>
+                            </tr>
+                            <tr>
+                                <td><code>cd</code></td>
+                                <td>Changes current directory</td>
+                                <td>cd [dir]</td>
+                                <td>cd /var/log ; cd ~</td>
+                            </tr>
+                            <tr>
+                                <td><code>man</code></td>
+                                <td>Displays manual pages</td>
+                                <td>man [command]</td>
+                                <td>man ls</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="example">
+                        <strong>Example:</strong> <code>ls -R /etc</code> (recursive listing of /etc)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4 -->
+            <div class="section" id="section4">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">4</div>
+                    <h2 class="section-title">Text Editors</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Edit configuration files with lightweight editors like Nano (simple) or Vim (powerful).
+                    </div>
+                    
+                    <div class="command-title">nano</div>
+                    <div class="command-block">
+                        <strong>Syntax:</strong> nano [options] [file]
+                        <br><strong>Example:</strong> nano -l /etc/motd (edit with line numbers)
+                        <br><strong>Options:</strong> -l (show line numbers), -w (no wrap)
+                    </div>
+
+                    <div class="command-title">vim</div>
+                    <div class="command-block">
+                        <strong>Syntax:</strong> vim [options] [file]
+                        <br><strong>Example:</strong> vim /etc/hosts, press i, add 192.168.1.1 server, save with :wq
+                        <br><strong>Options:</strong> -R (read-only), +10 (start at line 10)
+                    </div>
+
+                    <div class="config-file">
+                        <strong>Vim Cheatsheet:</strong>
+                        <ul>
+                            <li><strong>i</strong>: Insert mode</li>
+                            <li><strong>Esc</strong>: Normal mode</li>
+                            <li><strong>:w, :q, :wq</strong>: Save, quit, save+quit</li>
+                            <li><strong>dd, yy, p</strong>: Delete line, copy line, paste</li>
+                            <li><strong>/pattern</strong>: Search forward</li>
+                        </ul>
+                    </div>
+
+                    <div class="example">
+                        <strong>Example:</strong> Create ~/.vimrc with <code>echo "set number" > ~/.vimrc</code> for line numbers in Vim.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5 -->
+            <div class="section" id="section5">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">5</div>
+                    <h2 class="section-title">Globbing</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Uses wildcards to match file patterns, saving time in file operations.
+                    </div>
+                    
+                    <div class="command-block">
+                        <strong>Syntax:</strong> * (any chars), ? (single char), [range] (e.g., [1-3])
+                    </div>
+
+                    <div class="example">
+                        <strong>Examples:</strong>
+                        <ul>
+                            <li><code>ls *.txt</code>: Lists all .txt files</li>
+                            <li><code>rm file[1-3].log</code>: Deletes file1.log, file2.log, file3.log</li>
+                            <li><code>cp /etc/?a* /backup</code>: Copies files like /etc/passwd</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 6 -->
+            <div class="section" id="section6">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">6</div>
+                    <h2 class="section-title">Cockpit</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Web-based GUI for system management (services, storage, logs).
+                    </div>
+                    
+                    <div class="command-block">
+                        <strong>Command:</strong> systemctl enable --now cockpit.socket
+                        <br><strong>Syntax:</strong> systemctl [start/enable] cockpit.socket
+                        <br><strong>Example:</strong> dnf install cockpit ; systemctl enable --now cockpit.socket
+                        <br>(access at https://localhost:9090)
+                    </div>
+
+                    <div class="config-file">
+                        <strong>Config File:</strong> /etc/cockpit/cockpit.conf (e.g., customize port)
+                    </div>
+
+                    <div class="example">
+                        <strong>Example:</strong> Edit /etc/cockpit/cockpit.conf to set <code>UrlRoot=/cockpit</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 7 -->
+            <div class="section" id="section7">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">7</div>
+                    <h2 class="section-title">File Management Tools</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Commands for creating, copying, moving, and deleting files/directories.
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Command</th>
+                                <th>Description</th>
+                                <th>Syntax</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>mkdir</code></td>
+                                <td>Creates directories</td>
+                                <td>mkdir [-p] dir</td>
+                                <td>mkdir -p /new/path/dir</td>
+                            </tr>
+                            <tr>
+                                <td><code>cp</code></td>
+                                <td>Copies files/dirs</td>
+                                <td>cp [-r] src dst</td>
+                                <td>cp -r /dir1 /dir2</td>
+                            </tr>
+                            <tr>
+                                <td><code>mv</code></td>
+                                <td>Moves or renames</td>
+                                <td>mv src dst</td>
+                                <td>mv file.txt /dir/newfile.txt</td>
+                            </tr>
+                            <tr>
+                                <td><code>rmdir</code></td>
+                                <td>Removes empty dirs</td>
+                                <td>rmdir dir</td>
+                                <td>rmdir empty</td>
+                            </tr>
+                            <tr>
+                                <td><code>rm</code></td>
+                                <td>Deletes files/dirs</td>
+                                <td>rm [-rf] file</td>
+                                <td>rm -rf /dir</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="command-title">Finding Files</div>
+                    
+                    <div class="command-block">
+                        <code>which</code> - Locates executable
+                        <br><strong>Syntax:</strong> which command
+                        <br><strong>Example:</strong> which ls → /usr/bin/ls
+                    </div>
+
+                    <div class="command-block">
+                        <code>whereis</code> - Finds binary, source, man pages
+                        <br><strong>Syntax:</strong> whereis command
+                        <br><strong>Example:</strong> whereis bash → bash: /bin/bash /usr/share/man/man1/bash.1.gz
+                    </div>
+
+                    <div class="command-block">
+                        <code>locate</code> - Fast database search
+                        <br><strong>Syntax:</strong> locate pattern
+                        <br><strong>Example:</strong> updatedb ; locate passwd
+                        <br><strong>Config File:</strong> /etc/updatedb.conf
+                    </div>
+
+                    <div class="command-block">
+                        <code>find</code> - Advanced file search
+                        <br><strong>Syntax:</strong> find [path] [criteria]
+                        <br><strong>Example:</strong> find / -type f -name "*.conf" -perm 644
+                    </div>
+
+                    <div class="command-title">Links</div>
+                    <div class="command-block">
+                        <code>ln</code> - Creates hard or symbolic links
+                        <br><strong>Syntax:</strong> ln [-s] file link
+                        <br><strong>Example:</strong> ln -s /etc/passwd symlink
+                    </div>
+
+                    <div class="command-title">Archiving Tools</div>
+                    
+                    <div class="command-block">
+                        <code>tar</code> - Archives files
+                        <br><strong>Syntax:</strong> tar [cvf/xvf/tvf] file.tar [files]
+                        <br><strong>Example:</strong> tar czvf archive.tar.gz /dir
+                    </div>
+
+                    <div class="command-block">
+                        <code>gzip</code> - Compresses files
+                        <br><strong>Syntax:</strong> gzip file
+                        <br><strong>Example:</strong> gzip log.txt → log.txt.gz ; gunzip log.txt.gz
+                    </div>
+
+                    <div class="command-block">
+                        <code>bzip2, xz</code> - Higher compression
+                        <br><strong>Syntax:</strong> bzip2 file ; xz file
+                        <br><strong>Example:</strong> xz log.txt → log.txt.xz
+                    </div>
+
+                    <div class="command-title">Text Viewing</div>
+                    
+                    <div class="command-block">
+                        <code>more</code> - Basic pager (forward only)
+                        <br><strong>Example:</strong> more /var/log/messages
+                    </div>
+
+                    <div class="command-block">
+                        <code>less</code> - Advanced pager (scroll back)
+                        <br><strong>Example:</strong> less /var/log/messages
+                    </div>
+
+                    <div class="command-block">
+                        <code>head</code> - Shows first lines
+                        <br><strong>Syntax:</strong> head [-n num] file
+                        <br><strong>Example:</strong> head -n 5 /etc/passwd
+                    </div>
+
+                    <div class="command-block">
+                        <code>tail</code> - Shows last lines
+                        <br><strong>Syntax:</strong> tail [-f/-n num] file
+                        <br><strong>Example:</strong> tail -f /var/log/httpd/access_log
+                    </div>
+
+                    <div class="command-block">
+                        <code>cat</code> - Displays file content
+                        <br><strong>Example:</strong> cat /etc/hosts
+                    </div>
+
+                    <div class="command-block">
+                        <code>tac</code> - Displays in reverse
+                        <br><strong>Example:</strong> tac /etc/passwd
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 8 -->
+            <div class="section" id="section8">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">8</div>
+                    <h2 class="section-title">Text Processing</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Manipulate and search text for efficient data handling.
+                    </div>
+                    
+                    <div class="command-block">
+                        <code>cut</code> - Extracts sections from lines
+                        <br><strong>Syntax:</strong> cut [options] file
+                        <br><strong>Example:</strong> cut -d':' -f1,3 /etc/passwd (username and UID)
+                        <br><strong>Options:</strong> -d (delimiter), -f (fields)
+                    </div>
+
+                    <div class="command-block">
+                        <code>sort</code> - Sorts lines
+                        <br><strong>Syntax:</strong> sort [options] file
+                        <br><strong>Example:</strong> sort -k2 -n file (numeric sort by 2nd field)
+                        <br><strong>Options:</strong> -k (field), -n (numeric)
+                    </div>
+
+                    <div class="command-block">
+                        <code>tr</code> - Translates characters
+                        <br><strong>Syntax:</strong> tr set1 set2 < file
+                        <br><strong>Example:</strong> tr '[:lower:]' '[:upper:]' < file
+                    </div>
+
+                    <div class="command-block">
+                        <code>awk</code> - Processes patterns and fields
+                        <br><strong>Syntax:</strong> awk 'pattern {action}' file
+                        <br><strong>Example:</strong> awk -F: '{print $1,$3}' /etc/passwd
+                    </div>
+
+                    <div class="command-block">
+                        <code>sed</code> - Stream editor for text transformation
+                        <br><strong>Syntax:</strong> sed [options] 'command' file
+                        <br><strong>Example:</strong> sed -i 's/error/warning/g' log.txt
+                        <br><strong>Options:</strong> -i (in-place), -r (extended regex)
+                    </div>
+
+                    <div class="command-block">
+                        <code>grep</code> - Searches for patterns
+                        <br><strong>Syntax:</strong> grep [options] pattern file
+                        <br><strong>Example:</strong> grep -ri "error" /var/log
+                        <br><strong>Options:</strong> -i (ignore case), -r (recursive), -v (invert), -E (extended regex)
+                        <br><strong>Regex Examples:</strong>
+                        <ul>
+                            <li>^error: Lines starting with "error"</li>
+                            <li>log$: Lines ending with "log"</li>
+                            <li>[0-9]+: One or more digits</li>
+                            <li>grep -E 'error|warn' log (match either)</li>
+                        </ul>
+                    </div>
+
+                    <div class="command-title">Pipes & Logic</div>
+                    <div class="command-block">
+                        <code>|</code> - Chains output to input
+                        <br><strong>Example:</strong> ls /etc | grep conf
+                    </div>
+
+                    <div class="command-block">
+                        <code>&&</code> - Runs next command if previous succeeds
+                        <br><strong>Example:</strong> mkdir dir && cd dir
+                    </div>
+
+                    <div class="command-title">Redirection</div>
+                    <div class="command-block">
+                        <code>></code> - Overwrites stdout
+                        <br><strong>Example:</strong> ls > out.txt
+                        <br><br><code>>></code> - Appends stdout
+                        <br><strong>Example:</strong> ls >> out.txt
+                        <br><br><code>2></code> - Redirects stderr
+                        <br><strong>Example:</strong> ls nonexist 2> err.txt
+                        <br><br><code><</code> - Redirects stdin
+                        <br><strong>Example:</strong> cat < input.txt
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 9 -->
+            <div class="section" id="section9">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">9</div>
+                    <h2 class="section-title">User & Group Management</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Manage users and groups to control system access.
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Command</th>
+                                <th>Description</th>
+                                <th>Syntax</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>useradd</code></td>
+                                <td>Creates user</td>
+                                <td>useradd [options] user</td>
+                                <td>useradd -m -G wheel bob</td>
+                            </tr>
+                            <tr>
+                                <td><code>usermod</code></td>
+                                <td>Modifies user</td>
+                                <td>usermod [options] user</td>
+                                <td>usermod -aG staff bob</td>
+                            </tr>
+                            <tr>
+                                <td><code>userdel</code></td>
+                                <td>Deletes user</td>
+                                <td>userdel [-r] user</td>
+                                <td>userdel -r bob</td>
+                            </tr>
+                            <tr>
+                                <td><code>groupadd</code></td>
+                                <td>Creates group</td>
+                                <td>groupadd group</td>
+                                <td>groupadd staff</td>
+                            </tr>
+                            <tr>
+                                <td><code>groupdel</code></td>
+                                <td>Deletes group</td>
+                                <td>groupdel group</td>
+                                <td>groupdel staff</td>
+                            </tr>
+                            <tr>
+                                <td><code>id</code></td>
+                                <td>Displays user/group info</td>
+                                <td>id [user]</td>
+                                <td>id bob</td>
+                            </tr>
+                            <tr>
+                                <td><code>chage</code></td>
+                                <td>Manages password aging</td>
+                                <td>chage [options] user</td>
+                                <td>chage -E 2026-01-01 bob</td>
+                            </tr>
+                            <tr>
+                                <td><code>passwd</code></td>
+                                <td>Sets user password</td>
+                                <td>passwd [user]</td>
+                                <td>passwd bob</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="config-file">
+                        <strong>Config Files:</strong>
+                        <ul>
+                            <li><code>/etc/passwd</code>: Stores user info (username:UID:GID:home:shell)</li>
+                            <li><code>/etc/shadow</code>: Hashed passwords and aging</li>
+                            <li><code>/etc/group</code>: Group memberships</li>
+                            <li><code>/etc/login.defs</code>: Password policies, defaults</li>
+                            <li><code>/etc/default/useradd</code>: Useradd defaults</li>
+                            <li><code>/etc/skel</code>: Template files for new user home dirs</li>
+                        </ul>
+                    </div>
+
+                    <div class="example">
+                        <strong>Example:</strong> Create user: <code>useradd -m -c "Bob Smith" bob ; passwd bob</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 10 -->
+            <div class="section" id="section10">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">10</div>
+                    <h2 class="section-title">Permissions & Ownership</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Control file access with ownership and permissions.
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Command</th>
+                                <th>Description</th>
+                                <th>Syntax</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>chown</code></td>
+                                <td>Changes file owner/group</td>
+                                <td>chown [user:group] file</td>
+                                <td>chown bob:staff file</td>
+                            </tr>
+                            <tr>
+                                <td><code>chgrp</code></td>
+                                <td>Changes file group</td>
+                                <td>chgrp [group] file</td>
+                                <td>chgrp staff file</td>
+                            </tr>
+                            <tr>
+                                <td><code>chmod</code></td>
+                                <td>Sets permissions</td>
+                                <td>chmod [mode] file</td>
+                                <td>chmod 644 file (rw-r--r--)</td>
+                            </tr>
+                            <tr>
+                                <td><code>umask</code></td>
+                                <td>Sets default permissions</td>
+                                <td>umask [value]</td>
+                                <td>umask 022 (rw-r--r--)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="command-title">Special Permissions</div>
+                    <div class="command-block">
+                        <strong>SetUID:</strong> chmod 4755 file (run as owner)
+                        <br><strong>SetGID:</strong> chmod 2755 dir (inherit group)
+                        <br><strong>Sticky Bit:</strong> chmod 1777 /tmp (only owner deletes)
+                    </div>
+
+                    <div class="command-title">File ACL</div>
+                    <div class="command-block">
+                        <code>setfacl</code> - Sets access control lists
+                        <br><strong>Syntax:</strong> setfacl [-m/-x] rule file
+                        <br><strong>Example:</strong> setfacl -m u:alice:rwx /shared
+                    </div>
+
+                    <div class="command-block">
+                        <code>getfacl</code> - Views ACLs
+                        <br><strong>Example:</strong> getfacl /shared
+                    </div>
+
+                    <div class="example">
+                        <strong>Example:</strong> Set restrictive umask: <code>echo "umask 077" >> ~/.bashrc</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 11 -->
+            <div class="section" id="section11">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">11</div>
+                    <h2 class="section-title">Root & Access Control</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Root (UID 0) has full access; manage privilege escalation carefully.
+                    </div>
+                    
+                    <div class="command-block">
+                        <code>su</code> - Switches user
+                        <br><strong>Syntax:</strong> su [-] [user]
+                        <br><strong>Example:</strong> su - root (full root environment)
+                    </div>
+
+                    <div class="command-block">
+                        <code>sudo</code> - Runs commands as another user
+                        <br><strong>Syntax:</strong> sudo command
+                        <br><strong>Example:</strong> sudo systemctl restart httpd
+                    </div>
+
+                    <div class="config-file">
+                        <strong>Config Files:</strong> /etc/sudoers, /etc/sudoers.d/ (edit with visudo)
+                    </div>
+
+                    <div class="example">
+                        <strong>Example:</strong> Add <code>bob ALL=(ALL) ALL</code> to /etc/sudoers.d/bob
+                        <br>Grant sudo to wheel group: <code>visudo</code>, uncomment <code>%wheel ALL=(ALL) ALL</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 12 -->
+            <div class="section" id="section12">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">12</div>
+                    <h2 class="section-title">SSH</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Secure Shell for remote access and file transfer.
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Command</th>
+                                <th>Description</th>
+                                <th>Syntax</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>ssh</code></td>
+                                <td>Connects to remote host</td>
+                                <td>ssh [options] user@host</td>
+                                <td>ssh -p 2222 bob@server</td>
+                            </tr>
+                            <tr>
+                                <td><code>scp</code></td>
+                                <td>Copies files securely</td>
+                                <td>scp [options] src dst</td>
+                                <td>scp -r dir bob@server:~/</td>
+                            </tr>
+                            <tr>
+                                <td><code>sftp</code></td>
+                                <td>Secure file transfer protocol</td>
+                                <td>sftp user@host</td>
+                                <td>sftp bob@server (use put/get)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="command-title">Key-Based Login</div>
+                    <div class="command-block">
+                        <strong>Commands:</strong> ssh-keygen ; ssh-copy-id user@host
+                        <br><strong>Example:</strong> ssh-keygen -t rsa ; ssh-copy-id bob@192.168.1.10
+                    </div>
+
+                    <div class="command-title">SSH Hardening</div>
+                    <div class="config-file">
+                        <strong>Config:</strong> /etc/ssh/sshd_config
+                        <br><strong>Example:</strong> Edit to <code>PermitRootLogin no</code>, <code>Port 2222</code>, then <code>systemctl restart sshd</code>
+                    </div>
+
+                    <div class="example">
+                        <strong>Example:</strong> Copy directory: <code>scp -P 2222 -r /data bob@server:/home/bob</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 13 -->
+            <div class="section" id="section13">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">13</div>
+                    <h2 class="section-title">Networking</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Configure and troubleshoot network connections using NetworkManager.
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Command</th>
+                                <th>Description</th>
+                                <th>Syntax</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>nmcli</code></td>
+                                <td>Manages NetworkManager</td>
+                                <td>nmcli [con/dev] [action]</td>
+                                <td>nmcli con mod eth0 ipv4.addresses 192.168.1.10/24</td>
+                            </tr>
+                            <tr>
+                                <td><code>nmtui</code></td>
+                                <td>Text UI for network config</td>
+                                <td>nmtui</td>
+                                <td>nmtui (edit connection)</td>
+                            </tr>
+                            <tr>
+                                <td><code>ping</code></td>
+                                <td>Tests connectivity</td>
+                                <td>ping host</td>
+                                <td>ping 8.8.8.8</td>
+                            </tr>
+                            <tr>
+                                <td><code>dig</code></td>
+                                <td>Performs DNS lookup</td>
+                                <td>dig domain</td>
+                                <td>dig example.com</td>
+                            </tr>
+                            <tr>
+                                <td><code>ss</code></td>
+                                <td>Shows socket connections</td>
+                                <td>ss [options]</td>
+                                <td>ss -tuln (listening ports)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="config-file">
+                        <strong>Config Files:</strong> /etc/NetworkManager/system-connections/ (connection profiles)
+                    </div>
+
+                    <div class="example">
+                        <strong>Example:</strong> Connect to Wi-Fi: <code>nmcli dev wifi connect SSID password mypass</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 14 -->
+            <div class="section" id="section14">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">14</div>
+                    <h2 class="section-title">Process Management</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Monitor and control running processes.
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Command</th>
+                                <th>Description</th>
+                                <th>Syntax</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>ps</code></td>
+                                <td>Lists processes</td>
+                                <td>ps [options]</td>
+                                <td>ps aux | grep httpd</td>
+                            </tr>
+                            <tr>
+                                <td><code>top</code></td>
+                                <td>Interactive process monitor</td>
+                                <td>top</td>
+                                <td>top (quit with q, kill with k)</td>
+                            </tr>
+                            <tr>
+                                <td><code>nice</code></td>
+                                <td>Sets process priority</td>
+                                <td>nice -n value cmd</td>
+                                <td>nice -n 10 sleep 100</td>
+                            </tr>
+                            <tr>
+                                <td><code>renice</code></td>
+                                <td>Changes running process priority</td>
+                                <td>renice value -p PID</td>
+                                <td>renice 5 -p 1234</td>
+                            </tr>
+                            <tr>
+                                <td><code>kill</code></td>
+                                <td>Terminates processes</td>
+                                <td>kill [-signal] PID</td>
+                                <td>kill -9 1234 (force kill)</td>
+                            </tr>
+                            <tr>
+                                <td><code>jobs</code></td>
+                                <td>Lists background jobs</td>
+                                <td>jobs</td>
+                                <td>jobs</td>
+                            </tr>
+                            <tr>
+                                <td><code>fg, bg</code></td>
+                                <td>Manages job foreground/background</td>
+                                <td>fg %jobnum</td>
+                                <td>sleep 100 & ; fg %1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="command-block">
+                        <code>tuned</code> - Optimizes system performance
+                        <br><strong>Syntax:</strong> tuned-adm profile [profile]
+                        <br><strong>Example:</strong> tuned-adm profile virtual-guest
+                        <br><strong>Config File:</strong> /etc/tuned/tuned-main.conf
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 15 -->
+            <div class="section" id="section15">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">15</div>
+                    <h2 class="section-title">Software Management</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Install, update, and manage packages with DNF, RPM, and Flatpak.
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Command</th>
+                                <th>Description</th>
+                                <th>Syntax</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>dnf</code></td>
+                                <td>Manages packages</td>
+                                <td>dnf [install/update/remove] pkg</td>
+                                <td>dnf install httpd -y</td>
+                            </tr>
+                            <tr>
+                                <td><code>rpm</code></td>
+                                <td>Manages RPM files</td>
+                                <td>rpm [options] pkg</td>
+                                <td>rpm -ivh package.rpm</td>
+                            </tr>
+                            <tr>
+                                <td><code>flatpak</code></td>
+                                <td>Installs Flatpak apps</td>
+                                <td>flatpak install repo app</td>
+                                <td>flatpak install flathub firefox</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="command-title">Local Repo Setup</div>
+                    <div class="command-block">
+                        <strong>Commands:</strong> mount /dev/cdrom /mnt ; dnf repolist
+                    </div>
+
+                    <div class="config-file">
+                        <strong>Config:</strong> /etc/yum.repos.d/local.repo
+                        <pre>[local]
+name=Local Repo
+baseurl=file:///mnt
+enabled=1
+gpgcheck=0</pre>
+                    </div>
+
+                    <div class="example">
+                        <strong>Example:</strong> Create repo: <code>echo "[local]\nname=Local Repo\nbaseurl=file:///mnt\nenabled=1\ngpgcheck=0" > /etc/yum.repos.d/local.repo</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 16 -->
+            <div class="section" id="section16">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">16</div>
+                    <h2 class="section-title">Systemd</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Manages services, targets, and system initialization.
+                    </div>
+                    
+                    <div class="command-block">
+                        <code>systemctl</code> - Controls services/targets
+                        <br><strong>Syntax:</strong> systemctl [start/stop/enable/status] unit
+                        <br><strong>Example:</strong> systemctl enable --now httpd
+                    </div>
+
+                    <div class="command-title">Custom Service</div>
+                    <div class="config-file">
+                        <strong>Config:</strong> /etc/systemd/system/myservice.service
+                        <pre>[Unit]
+Description=My Custom Service
+
+[Service]
+ExecStart=/bin/bash /script.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target</pre>
+                    </div>
+
+                    <div class="example">
+                        <strong>Example:</strong> <code>systemctl daemon-reload ; systemctl enable myservice</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 17 -->
+            <div class="section" id="section17">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">17</div>
+                    <h2 class="section-title">Task Scheduling</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Automate tasks with cron, at, or systemd timers.
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Command</th>
+                                <th>Description</th>
+                                <th>Syntax</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>crontab</code></td>
+                                <td>Schedules recurring tasks</td>
+                                <td>crontab [-e/-l]</td>
+                                <td>crontab -e → 0 2 * * * /backup.sh</td>
+                            </tr>
+                            <tr>
+                                <td><code>at</code></td>
+                                <td>Schedules one-time tasks</td>
+                                <td>at [time]</td>
+                                <td>at now +5min → echo test > file</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="command-title">Systemd Timers</div>
+                    <div class="config-file">
+                        <strong>Config:</strong> /etc/systemd/system/mytimer.timer
+                        <pre>[Unit]
+Description=My Timer
+
+[Timer]
+OnCalendar=*-*-* 02:00:00
+Unit=myservice.service
+
+[Install]
+WantedBy=timers.target</pre>
+                    </div>
+
+                    <div class="example">
+                        <strong>Example:</strong> <code>systemctl enable --now mytimer.timer</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 18 -->
+            <div class="section" id="section18">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">18</div>
+                    <h2 class="section-title">Logging</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Monitor and manage system logs with journald, rsyslog, and logrotate.
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Command</th>
+                                <th>Description</th>
+                                <th>Syntax</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>journalctl</code></td>
+                                <td>Views systemd logs</td>
+                                <td>journalctl [options]</td>
+                                <td>journalctl -u httpd -f</td>
+                            </tr>
+                            <tr>
+                                <td><code>logger</code></td>
+                                <td>Sends custom log messages</td>
+                                <td>logger message</td>
+                                <td>logger "Test log entry"</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="config-file">
+                        <strong>Config Files:</strong>
+                        <ul>
+                            <li><code>/etc/rsyslog.conf</code>: Configures log forwarding (e.g., *.* @192.168.1.100:514)</li>
+                            <li><code>/etc/systemd/journald.conf</code>: Sets persistent logging (Storage=persistent)</li>
+                            <li><code>/etc/logrotate.conf</code>: Manages log rotation (e.g., /var/log/messages { weekly rotate 4 })</li>
+                        </ul>
+                    </div>
+
+                    <div class="example">
+                        <strong>Example:</strong> Forward logs: Edit /etc/rsyslog.conf, add <code>*.* @logserver</code>, run <code>systemctl restart rsyslog</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 19 -->
+            <div class="section" id="section19">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-number">19</div>
+                    <h2 class="section-title">Storage Management</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="description">
+                        <strong>Description:</strong> Partition, format, and mount storage; manage LVM and SWAP.
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Command</th>
+                                <th>Description</th>
+                                <th>Syntax</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>fdisk</code></td>
+                                <td>Partitions disks (MBR/GPT)</td>
+                                <td>fdisk device</td>
+                                <td>fdisk /dev/sda</td>
+                            </tr>
+                            <tr>
+                                <td><code>parted</code></td>
+                                <td>Advanced partitioning</td>
+                                <td>parted device commands</td>
+                                <td>parted /dev/sda mklabel gpt</td>
+                            </tr>
+                            <tr>
+                                <td><code>mkfs</code></td>
+                                <td>Formats filesystem</td>
+                                <td>mkfs.fs_type device</td>
+                                <td>mkfs.xfs /dev/sda1</td>
+                            </tr>
+                            <tr>
+                                <td><code>mount</code></td>
+                                <td>Mounts filesystem</td>
+                                <td>mount device dir</td>
+                                <td>mount /dev/sda1 /mnt</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="command-title">SWAP</div>
+                    <div class="command-block">
+                        <strong>Commands:</strong> dd if=/dev/zero of=/swapfile bs=1M count=1024 ; mkswap /swapfile ; swapon /swapfile
+                        <br><strong>Config:</strong> Add to /etc/fstab: <code>/swapfile swap swap defaults 0 0</code>
+                    </div>
+
+                    <div class="command-title">LVM</div>
+                    <div class="command-block">
+                        <strong>Commands:</strong>
+                        <br>• pvcreate /dev/sdb: Creates physical volume
+                        <br>• vgcreate vg0 /dev/sdb: Creates volume group
+                        <br>• lvcreate -L 5G -n lv0 vg0: Creates logical volume
+                        <br>• lvextend -L +2G /dev/vg0/lv0 ; xfs_growfs /mountpoint: Extends volume
+                        <br><strong>Example:</strong> pvs ; vgs ; lvs (display LVM info)
+                    </div>
